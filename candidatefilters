@@ -1,0 +1,224 @@
+CODE:
+mamba activate irinasenviro
+modul load bcftools
+VEP to eval amino acid change: (below)
+
+To get VCF filtered to a gene: bcftools view -r 'chrX:34932471-34936124' CSNB.vcf.gz -O v -o nyxCSNB.vcf
+
+
+ABCA4:
+bcftools view -r 'chr5: 67809739-67941330' CSNB.vcf.gz -O v -o abca4CSNB.vcf
+
+CABP4:
+bcftools view -r 'chr12: 30916011-30920131' CSNB.vcf.gz -O v -o cabp4CSNB.vcf
+
+CACNA1F:
+bcftools view -r 'chrX: 41044562-4106831' CSNB.vcf.gz -O v -o cacna1fCSNB.vcf
+
+GNAT1:
+bcftools view -r 'chr16: 38601270-38605669' CSNB.vcf.gz -O v -o gnat1CSNB.vcf
+
+GNB3:
+bcftools view -r 'chr6: 35336446-35343414' CSNB.vcf.gz -O v -o gnb3CSNB.vcf
+
+GPR179:
+bcftools view -r 'chr11: 23750515-23767914' CSNB.vcf.gz -O v -o gpr179CSNB.vcf
+
+GRK1:
+bcftools view -r 'chr17: 80232745-80245704' CSNB.vcf.gz -O v -o grk1CSNB.vcf
+
+GUCY2D:
+bcftools view -r 'chr11: 51252821-51268206' CSNB.vcf.gz -O v -o gucy2dCSNB.vcf
+
+LRIT3:
+bcftools view -r 'chr2: 116375480-116392650' CSNB.vcf.gz -O v -o lrit3CSNB.vcf
+
+PDE6B:
+bcftools view -r 'chr3: 121229873-121263690' CSNB.vcf.gz -O v -o pde6bCSNB.vcf
+
+RBP3:
+bcftools view -r 'chr1: 83765119-83778182' CSNB.vcf.gz -O v -o rbp3CSNB.vcf
+
+RHO: Chr16: 5832305..5845540
+bcftools view -r 'chr16: 5832305-5845540' CSNB.vcf.gz -O v -o rhoCSNB.vcf
+
+SLC24A1: Chr1: 128016262..128048317
+bcftools view -r 'chr1: 128016262-128048317' CSNB.vcf.gz -O v -o slcCSNB.vcf
+
+-- FundAlb
+
+RLBP1
+bcftools view -r 'chr1: 95026385-95042392' CSNB.vcf.gz -O v -o rlbp1CSNB.vcf
+
+RDH5
+bcftools view -r 'chr6: 74412049-74417113' CSNB.vcf.gz -O v -o rdh5CSNB.vcf
+
+PRPH2
+bcftools view -r 'chr20: 42752887-42769079' CSNB.vcf.gz -O v -o prph2CSNB.vcf
+
+RGR
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+-- Tier 2
+
+BEST1:
+bcftools view -r 'chr12: 25505583-25517005' CSNB.vcf.gz -O v -o best1CSNB.vcf
+
+CACNA2D4:
+bcftools view -r 'chr6: 29806217-29915196' CSNB.vcf.gz -O v -o cacna2d4CSNB.vcf
+
+MERTK:
+bcftools view -r 'chr15: 15557363-15660143' CSNB.vcf.gz -O v -o mertkCSNB.vcf
+
+MYO6:
+bcftools view -r 'chr10: 31015258-31166694' CSNB.vcf.gz -O v -o myo6CSNB.vcf
+
+PDE6A:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+PROM1:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+PRPH2:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+RBP4:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+RDH5:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+RP2:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+RPE65:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+RPGR:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+SEMA4A:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+USH2A:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+WDR19:
+bcftools view -r 'chr1: 86580288-86590851' CSNB.vcf.gz -O v -o rgrCSNB.vcf
+
+VEP:
+
+vep -i abca4CSNB.vcf --cache --fasta reference.fasta --dir_cache path/to/cache_directory --offline --protein --canonical --sift b --polyphen b --ccds --domains --symbol --pick
+
+^ didn't work
+
+vep -i abca4CSNB.vcf --cache --fasta Equus_caballus.EquCab3.0.dna.toplevel.fa.gz  --dir_cache /home/durwa004/shavl004/ensembl-vep/vep/ --offline --protein --canonical --sift b --polyphen b --ccds --domains --symbol --pick
+
+^ didn't work
+
+vep -i abca4CSNB.vcf --cache --fasta --dir_cache /home/durwa004/shavl004/ensembl-vep --offline --protein --canonical --sift b --polyphen b --ccds --domains --symbol --pick
+
+vep -i abca4CSNB.vcf --cache --fasta equus_caballus --dir_cache /home/durwa004/shavl004/.vep/equus_caballus/109_EquCab3.0/Equus_caballus.EquCab3.0.dna.toplevel.fa.gz --offline --species equus_caballus --protein --canonical --ccds --domains --symbol --pick
+
+Equus_caballus.EquCab3.0.dna.toplevel.fa.gz
+
+vep -i abca4CSNB.vcf --cache --fasta Equus_caballus.EquCab3.0.dna.toplevel.fa.gz --dir_cache /home/durwa004/shavl004/.vep/equus_caballus/109_EquCab3.0 --offline --species Equus_caballus.EquCab3.0.dna.toplevel.fa.gz/ --protein --canonical --ccds --domains --symbol --pick
+
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=50g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name abca4VEP.slurm
+#SBATCH -o %j.abca4VEP.out
+#SBATCH -e %j.abca4VEP.err
+#SBATCH -p msismall,msilarge
+
+conda activate vepworld
+
+#gatk IndexFeatureFile -I CSNB.vcf.gz -o ModerateImpact.vcf -f "IMPACT = MODERATE" --format vcf --gz
+filter_vep -i abca4CSNB.vcf 
+
+using vep tutorial:
+./vep -i examples/cabp4CSNB.vcf --cache
+
+
+filter_vep cabp4CSNB.vcf -o cabp4vep.vcf -f "IMPACT = MODERATE" --format vcf --gz
+
+
+
+(irinasenviro) shavl004@ln0004 [~] % bgzip cabp4CSNB.vcf
+(irinasenviro) shavl004@ln0004 [~] % tabix -p vcf cabp4CSNB.vcf.gz
+(irinasenviro) shavl004@ln0004 [~] % filter_vep -i cabp4CSNB.vcf.gz -o cabp4modi                                                                             m.vcf -f "IMPACT = MODERATE" --format vcf --gz
+(irinasenviro) shavl004@ln0004 [~] % less cabp4modim.vcf
+(irinasenviro) shavl004@ln0004 [~] % less cabp4CSNB.vcf
+cabp4CSNB.vcf: No such file or directory
+(irinasenviro) shavl004@ln0004 [~] % less gpr179modim.vcf
+(irinasenviro) shavl004@ln0004 [~] % bgzip slcCSNB.vcf
+(irinasenviro) shavl004@ln0004 [~] % filter_vep -i CSNB.vcf.gz -o CSNBHighImp.vcf -f "IMPACT = HIGH" --format vcf --gz
+
+
+Made a high impact variant list for the entire 3 horses (only in chr 1,2,3 interestingly --> think it failed before finishing!). Now I will grep for a list of genes.
+
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1" CSNBHighImp.vcf > highimpcandidatesCSNB.vcf
+
+Re-do to make sure it didn't fail early: filter_vep -i CSNB.vcf.gz -o CSNBHighImpFinal.vcf -f "IMPACT = HIGH" --format vcf --gz
+
+re-grep'd 
+
+
+MODERATE:
+filter_vep -i CSNB.vcf.gz -o CSNBModerateImp.vcf -f "IMPACT = MODERATE" --format vcf --gz
+
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1" CSNBMedImp.vcf > mediumimpcandidatesCSNB.vcf
+
+COULDN'T RUN IT ON COMMAND LINE.
+
+"highimp.slurm" :
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=100g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name highimp.slurm
+#SBATCH -o %j.highimp.out
+#SBATCH -e %j.highimp.err
+#SBATCH -p msismall,msilarge
+
+mamba activate irinasenviro
+module load bcftools
+
+filter_vep -i CSNB.vcf.gz -o HighImpCSNB.vcf -f "IMPACT = HIGH" --format vcf --gz
+
+"modimp.slurm" :
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=100g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name modimp.slurm
+#SBATCH -o %j.modimp.out
+#SBATCH -e %j.modimp.err
+#SBATCH -p msismall,msilarge
+
+mamba activate irinasenviro
+module load bcftools
+
+filter_vep -i CSNB.vcf.gz -o ModImpCSNB.vcf -f "IMPACT = MODERATE" --format vcf --gz
+
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1" ModImpCSNB.vcf > modimpcandidatesCSNB.vcf
+
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1" HighImpCSNB.vcf > highimpcandidatesCSNB.vcf
+
+Filtering high imp cand for AC=6
+
+grep -E "AC=6" HighImpCSNB.vcf > highimpac6CSNB.vcf
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1|ABHD12|AGPAT3|AIPL1|AP3B1|ARHGEF18|ARL3|ARL6|ARRB1|ARSG|BBS4|BHLHE23|BRAF|C1QTNF5|CDK19|CDKN2A|CEP290|CEP78|CERKL|CFH|CHM|CNGA1|CNGA3|CNGB1|COG4|COL18A1|COL2A1|CRX|CX3CR1|CYP4V2|DMD|ELOVL4|FAM161A|FLVCR1|FSCN2|GJA10|GPR143|GPR34|GRK7|GUCA1A|HGSNAT|HK1|HKDC1|HSP90AA1|IDH3A|IFT140|IFT172|IFT74|IMPDH1|IMPG1|IRF3|ITM2B|KCNV2|KIAA1549|KIF11|LAMA5|LPCAT1|LRAT|LRP5|MAP3K1|MFRP|MMP19|MYL5|MYO7A|NCAM1|NEK2|NEUROD1|NMNAT1|OAT|OPTN|OR2W3|OTX2|PCARE|PDE6G|PDE6H|PLA2G5|PMM2|POMGNT1|RDH12|REEP6|RGS9|RIMS2|RLBP1|ROM1|RRAS2|RRH|RRM2B|SLC25A46|SLC4A3|SLC4A5|SLC6A6|SLC7A14STK11|STRA6|TIMP3|TRPV4|TTC8|TULP1|UBB|UCHL3|UNC119|VCAN|TRAPPC9|FGFR2|RHOD" HighImpCSNB.vcf > allhighimpCSNB.vcf
+
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1|ABHD12|AGPAT3|AIPL1|AP3B1|ARHGEF18|ARL3|ARL6|ARRB1|ARSG|BBS4|BHLHE23|BRAF|C1QTNF5|CDK19|CDKN2A|CEP290|CEP78|CERKL|CFH|CHM|CNGA1|CNGA3|CNGB1|COG4|COL18A1|COL2A1|CRX|CX3CR1|CYP4V2|DMD|ELOVL4|FAM161A|FLVCR1|FSCN2|GJA10|GPR143|GPR34|GRK7|GUCA1A|HGSNAT|HK1|HKDC1|HSP90AA1|IDH3A|IFT140|IFT172|IFT74|IMPDH1|IMPG1|IRF3|ITM2B|KCNV2|KIAA1549|KIF11|LAMA5|LPCAT1|LRAT|LRP5|MAP3K1|MFRP|MMP19|MYL5|MYO7A|NCAM1|NEK2|NEUROD1|NMNAT1|OAT|OPTN|OR2W3|OTX2|PCARE|PDE6G|PDE6H|PLA2G5|PMM2|POMGNT1|RDH12|REEP6|RGS9|RIMS2|RLBP1|ROM1|RRAS2|RRH|RRM2B|SLC25A46|SLC4A3|SLC4A5|SLC6A6|SLC7A14STK11|STRA6|TIMP3|TRPV4|TTC8|TULP1|UBB|UCHL3|UNC119|VCAN|TRAPPC9|FGFR2|RHOD" ModImpCSNB.vcf > allmodimpCSNB.vcf
