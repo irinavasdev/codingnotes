@@ -1,0 +1,151 @@
+import os
+import gzip
+import re
+from collections import Counter
+​
+#Get start and stop locations for tabix code:
+#vcf = "STB_AFIB_cases_only.goldenPath.vcf.gz"
+vcf = "ANSAD_cases.goldenPath.vcf.gz"
+​
+#with open("top_AF_genes.txt", "r") as input_f, open("top_AF_genes_tabix.txt", "w") as output_f: 
+with open("top_ANSAD_genes.txt", "r") as input_f, open("top_ANSAD_genes_tabix.txt", "w") as output_f:
+    input_f.readline()
+    for line in input_f:
+        line = line.rstrip("\n").split("\t")
+        if "PJ" in line[6]:
+            next
+        else:
+            print(f"tabix ../{vcf} chr", line[6], ":", line[9], "-", line[10], " > ", line[1], ".txt", sep = "", file = output_f)
+​
+​
+#Get header
+header = ["chrom", "pos", "ref", "alt", "AC", "AF"]
+#with gzip.open("STB_AFIB_cases_only.goldenPath.vcf.gz", "rt") as input_file:
+with gzip.open("ANSAD_cases.goldenPath.vcf.gz", "rt") as input_file, open("ANSAD.variants.txt", "w") as output_file:
+    for line in input_file:
+        line = line.rstrip("\n").split("\t")
+        if "#" in line[0]:
+            if "##INFO=<ID=CSQ" in line[0]:
+                line = line[0].split("Allele|")
+                line = line[1].split("|")
+                for item, value in enumerate(line):
+                    if item < 11:
+                        header.append(value)
+                break
+​
+#Extract high and moderate impact variants
+#directory = "LAF_candidates/"
+directory = "ANSAD_candidates/"
+​
+#with open("LAF_top_100_tidy.txt", "w") as output_file:
+with open("ANSAD_top_100_tidy.txt", "w") as output_file:
+    print("\t".join(header), file = output_file)
+    for filename in os.listdir(directory):
+        with open(f"{directory}/{filename}", "r") as input_f:
+            for line in input_f:
+                line = line.rstrip("\n").split("\t") 
+                chr_pos = line[0] + ":" + line[1] + ":" + line[3] #chr:pos:ref 
+                if "," in line[4]: 
+                    al = line[4].split(",")
+                    ab = line[7].split(";")
+                    bc = ab[0].split("AC=")
+                    bc = bc[1].split(",")
+                    cd = ab[1].split("AF=")
+                    cd = cd[1].split(",")
+                    tmp = "NA"
+                    for i in range(len(al)):
+                        ef = line[7].split("CSQ=")
+                        ef = ef[1].split(";")
+                        ef = ef[0].split(",")
+                        if tmp == al[i]:
+                            next
+                        else:
+                            xv = al[i] + ":" + bc[i] + ":" + cd[i]  #alt:AC:AF
+                            for item1, value1 in enumerate(ef):
+                                fg1 = value1.split("|")
+                                fg = fg1[0:10]
+                                coding = fg1[10].split("c.")
+                                if len(coding) > 1:
+                                    coding = coding[1]
+                                else:
+                                    coding = "NA"
+                                protein = fg1[11].split("p.")
+                                if len(protein) > 1:
+                                    protein = protein[1]
+                                else:
+                                    protein = "NA"
+                                if al[i] == fg[0]:
+                                    plant = [] 
+                                    for item, value in enumerate(fg[1:]):
+                                        if item == 3 or item == 2 or item == 5:
+                                            value = value.split(".")
+                                            plant.append(value[0])
+                                        elif value == "":
+                                            plant.append("NA")
+                                        else:
+                                            plant.append(value)
+                                    tmp = fg1[0]
+                                    chr_pos1 = chr_pos.split(":")
+                                    xv1 = xv.split(":")
+                                    print("\t".join(chr_pos1), "\t".join(xv1), "\t".join(plant), coding, protein, sep = "\t", file = output_file)
+                                else:
+                                    next
+                else:
+                    al = line[4].split(",")
+                    ab = line[7].split(";")
+                    bc = ab[0].split("AC=")
+                    bc = bc[1]
+                    cd = ab[1].split("AF=")
+                    cd = cd[1]
+                    ef = line[7].split("CSQ=")
+                    ef = ef[1].split(";")
+                    ef = ef[0].split(",")
+                    fg1 = ef[0].split("|")
+                    fg = fg1[0:10]
+                    coding = fg1[10].split("c.")
+                    if len(coding) > 1:
+                        coding = coding[1]
+                    else:
+                        coding = "NA"
+                    protein = fg1[11].split("p.")
+                    if len(protein) > 1:
+                        protein = protein[1]
+                    else:
+                        protein = "NA"
+                    plant = []
+                    for item, value in enumerate(fg[1:]):
+                        if item == 10:
+                            break
+                        elif item == 3 or item == 2 or item == 5:
+                            value = value.split(".")
+                            plant.append(value[0])
+                        elif value == "":
+                            plant.append("N")
+                        else:
+                            plant.append(value)
+                    chr_pos1 = chr_pos.split(":")
+                    print("\t".join(chr_pos1), line[4], bc, cd, "\t".join(plant), coding, protein, sep = "\t", file = output_file)
+​
+#Pull out high/moderate impact variants
+#with open("LAF_top_100_tidy.txt", "r") as input_file, open("LAF.hm.top100.txt", "w") as output_f:
+with open("ANSAD_top_100_tidy.txt", "r") as input_file, open("ANSAD.hm.top100.txt", "w") as output_f: 
+    header = input_file.readline()
+    header = header.rstrip("\n").split("\t")
+    print("\t".join(header), file = output_f)
+    high = 0
+    mod = 0
+​
+    low = 0
+    variant = []
+    for line in input_file:
+        line = line.rstrip("\n").split("\t")
+        if line[7] == "HIGH":
+            high +=1
+            print("\t".join(line), file = output_f)
+        elif line[7] == "MODERATE":
+            mod +=1
+            print("\t".join(line), file = output_f)
+        elif line[7] == "LOW":
+            low +=1
+        else:
+            next
