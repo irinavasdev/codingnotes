@@ -4,7 +4,7 @@ import gzip
 import re
 from collections import Counter
 
-vcf = "allhighimpCSNB.vcf"
+vcf = "allhighimpCSNB.vcf" 
 
 header = ["chrom", "pos", "ref", "alt", "AC", "AF"]
 
