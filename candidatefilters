@@ -5,7 +5,6 @@ VEP to eval amino acid change: (below)
 
 To get VCF filtered to a gene: bcftools view -r 'chrX:34932471-34936124' CSNB.vcf.gz -O v -o nyxCSNB.vcf
 
-
 ABCA4:
 bcftools view -r 'chr5: 67809739-67941330' CSNB.vcf.gz -O v -o abca4CSNB.vcf
 
