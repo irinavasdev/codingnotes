@@ -53,6 +53,8 @@ bcftools view -s M12343,M12344,M12345 -Oz -o mmnew.vcf.gz joint_call_passing.gol
 Run Slurm:
 sbatch mmnew.slurm
 
+tabix mmnew.vcf.gz
+
 Search region:
 bcftools view -r 'chr5:89895561-89918174' mmnew.vcf.gz -O v -o RPEOGmanga.vcf.gz
 
