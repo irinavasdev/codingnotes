@@ -1,2 +1,30 @@
 Looking at the other "healthy" Mangalarga:
   bcftools view -i 'ID="<ERR982794>"' joint_call_passing.goldenPath.20230726.vep.vcf.gz > othermangalarga.vcf
+
+^ didn't work
+Trying a slurm instead:
+
+vim othermanga
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=100g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name othermanga
+#SBATCH -o %j.othermanga.out
+#SBATCH -e %j.othermanga.err
+#SBATCH -p msismall,msilarge
+
+mamba activate irinasenviro
+module load bcftools
+
+bcftools view -s ERR982794 -Oz -o othermanga.vcf joint_call_passing.goldenPath.20230726.vep.vcf.gz
+
+
+To open it:
+zless othermanga.vcf
+
+Now to search the genes:
+
