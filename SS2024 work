@@ -27,5 +27,6 @@ To open it:
 zless othermanga.vcf
 
 Now to search the genes:
-bcftools view -r 'chr5:89895561-89918174' othermanga.vcf -O v -o RPEothermanga.vcf.gz
+ bcftools view -r 'chr5:89895561-89918174' othermanga.vcf.gz -O v -o RPEothermanga.vcf.gz
+
 
