@@ -69,6 +69,9 @@ bcftools view -r 'chr30:16733626-18733626' mmnew.vcf.gz -O v -o USH2AOGmanga.vcf
 Filter New VCF for All HIGH Impact:
 bcftools view -i 'ANN[*].IMPACT=="HIGH"' mmnew.vcf.gz > highimpmmnew.vcf
 ^^ DIDN"T work. 
+Try this:
+filter_vep -i mmnew.vcf.gz -o MMnewHighImp.vcf -f "IMPACT = HIGH" --format vcf --gz
+
 
 Checking to see if my code works on the old VCF file:
 bcftools view -r 'chr5:89895561-89918174' CSNB.vcf.gz -O v -o RPEoldvcf.vcf.gz
