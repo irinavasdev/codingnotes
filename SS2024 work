@@ -55,6 +55,20 @@ sbatch mmnew.slurm
 
 tabix mmnew.vcf.gz
 
-Search region:
+Search region for RPE65:
 bcftools view -r 'chr5:89895561-89918174' mmnew.vcf.gz -O v -o RPEOGmanga.vcf.gz
+(NOT THERE! SAD!)
 
+Search for WDR19:
+bcftools view -r 'chr3:90200500-90201000' mmnew.vcf.gz -O v -o WDROGmanga.vcf.gz
+(^Still there)
+
+USH2A
+bcftools view -r 'chr30:16733626-18733626' mmnew.vcf.gz -O v -o USH2AOGmanga.vcf.gz
+
+Filter New VCF for All HIGH Impact:
+bcftools view -i 'ANN[*].IMPACT=="HIGH"' mmnew.vcf.gz > highimpmmnew.vcf
+^^ DIDN"T work. 
+
+Checking to see if my code works on the old VCF file:
+bcftools view -r 'chr5:89895561-89918174' CSNB.vcf.gz -O v -o RPEoldvcf.vcf.gz
