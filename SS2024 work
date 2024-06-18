@@ -150,4 +150,10 @@ bcftools view -s M12343,M12344,M12345 -Oz -o mmnewunfiltered.vcf.gz joint_call.g
 
 bcftools view -r 'chr5:89895561-89918174' mmnewunfiltered.vcf.gz -O v -o RPEmmnewunfiltered.vcf.gz
 
---Then, check other mangalarga; then, filter the high imp variants for the candidate genes found previously
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%AC\t%AF\t%QUAL\t%MQ\t%MQRankSum\n' RPEmmnewunfiltered.vcf.gz > variantstableRPEmmnewunfiltered.txt
+
+
+--Then, check other mangalarga; then, filter the high imp variants for the candidate genes found previously (NOT done yet)
+
+(Old code for filtering: grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1" HighImpCSNB.vcf > highimpcandidatesCSNB.vcf
+
