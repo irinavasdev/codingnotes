@@ -118,10 +118,36 @@ bcftools view -s ERR982794 -Oz -o othermangaoldvcf.vcf joint_genotype_combined.g
 sbatch othermangaoldvcf
 
 tabix othermangaoldvcf.vcf
+mv othermangaoldvcf.vcf othermangaoldvcf.vcf.gz
 
 bcftools view -r 'chr5:89895561-89918174' othermangaoldvcf.vcf.gz -O v -o RPEothermangaoldvcf.vcf.gz
 
 cd
-cd/home/durwa004/shared
+cd /home/durwa004/shared
 
+cp joint_call.goldenPath.20230726.vcf.gz ~
+cp joint_call.goldenPath.20230726.vcf.gz.tbi ~
 
+vim mmnewunfiltered.slurm
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=100g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name mmnew
+#SBATCH -o %j.mmnewunfiltered.out
+#SBATCH -e %j.mmnewunfiltered.err
+#SBATCH -p msismall,msilarge
+
+mamba activate irinasenviro
+module load bcftools
+
+bcftools view -s M12343,M12344,M12345 -Oz -o mmnewunfiltered.vcf.gz joint_call.goldenPath.20230726.vcf.gz
+
+-- Wait for it to finish, then: 
+
+bcftools view -r 'chr5:89895561-89918174' mmnewunfiltered.vcf.gz -O v -o RPEmmnewunfiltered.vcf.gz
+
+--Then, check other mangalarga; then, filter the high imp variants for the candidate genes found previously
