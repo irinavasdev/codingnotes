@@ -175,3 +175,34 @@ mamba activate irinasenviro
 module load bcftools
 
 filter_vep -i mmnew.vcf.gz -o mmnewmodimp.vcf -f "IMPACT = MODERATE" --format vcf --gz
+
+grep -E "BEST1|CACNA2D4|MERTK|MYO6|PDE6A|PROM1|PRPH2|RBP4|RDH5|RP2|RPE65|RPGR|SEMA4A|USH2A|WDR19|ABCA4|CABP4|CACNA1F|GNAT1|GNB3|GPR179|GRK1|GRM6|GUCY2D|LRIT3|NYX|PDE6B|RBP3|RHO|SAG|SLC24A1|RLBP1|RDH5|PRPH2|RGR|TRPM1" mmnewmodimp.vcf > moderateimpcandidatesmmnew.vcf
+
+New Candidate genes (based on those associated with retinitis pigmentosa in humans):
+grep -E "ABCA4|BEST1|C2ORF71|C8ORF37|CA4|CERKL|CLRN1|CNGA1|CNGB1|CRB1|CRX|DHDDS|EYS|FAM161A|FSCN2|GUCA1B|IDH3B|IMPDH1|IMPG2|KLHL7|LRAT|MAK|MERTK|NR2E3|NRL|OFD1|PDE6A|PDE6B|PDE6G|PRCD|PROM1|PRPF3|PRPF6|PRPF8|PRPF31|PRPH2|RBP3|RDH12|RGR|RHO|RLBP1|ROM1|RP1|RP2|RP9|RPE65|RPGR|SAG|SEMA4A|SNRNP200|SPATA7|TOPORS|TTC8|TULP1|USH2A|ZNF513" mmnewmodimp.vcf > newmoderateimpcandidatesmmnew.vcf
+
+
+grep -E "ABCA4|BEST1|C2ORF71|C8ORF37|CA4|CERKL|CLRN1|CNGA1|CNGB1|CRB1|CRX|DHDDS|EYS|FAM161A|FSCN2|GUCA1B|IDH3B|IMPDH1|IMPG2|KLHL7|LRAT|MAK|MERTK|NR2E3|NRL|OFD1|PDE6A|PDE6B|PDE6G|PRCD|PROM1|PRPF3|PRPF6|PRPF8|PRPF31|PRPH2|RBP3|RDH12|RGR|RHO|RLBP1|ROM1|RP1|RP2|RP9|RPE65|RPGR|SAG|SEMA4A|SNRNP200|SPATA7|TOPORS|TTC8|TULP1|USH2A|ZNF513" mmnewhighimp.vcf > newhighimpcandidatesmmnew.vcf
+
+-- Check to see if the other mangalarga has the variant in the new, UNFILTERED VCF:
+
+vim othermmnewunfiltered.slurm
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=100g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name mmnew
+#SBATCH -o %j.othermmnewunfiltered.out
+#SBATCH -e %j.othermmnewunfiltered.err
+#SBATCH -p msismall,msilarge
+
+mamba activate irinasenviro
+module load bcftools
+
+bcftools view -s ERR982794 -Oz -o othermmnewunfiltered.vcf.gz joint_call.goldenPath.20230726.vcf.gz
+
+-- Wait for it to finish, then: 
+bcftools view -r 'chr5:89895561-89918174' othermmnewunfiltered.vcf.gz -O v -o RPEothermmnewunfiltered.vcf.gz
