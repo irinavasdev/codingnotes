@@ -206,3 +206,34 @@ bcftools view -s ERR982794 -Oz -o othermmnewunfiltered.vcf.gz joint_call.goldenP
 
 -- Wait for it to finish, then: 
 bcftools view -r 'chr5:89895561-89918174' othermmnewunfiltered.vcf.gz -O v -o RPEothermmnewunfiltered.vcf.gz
+
+
+Now working on an annotated version of the previously un-annoated newer VCF (since the RPE variant didn't show up in the new VCF)
+(BandCompEnv) shavl004@ahl04 [/scratch.global/shavl004/BAndComp/outputs/final] 
+
+vim mm.slurm
+
+#!/bin/bash -l
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --mem=100g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=shavl004@umn.edu
+#SBATCH --job-name mmnew
+#SBATCH -o %j.mm.out
+#SBATCH -e %j.mm.err
+#SBATCH -p msismall,msilarge
+
+mamba activate BandCompEnv
+module load bcftools
+
+bcftools view -s M12343,M12344,M12345 -Oz -o mmn.vcf.gz  joint_call.goldenPath_annotated.20230726.vcf.gz 
+
+Run Slurm:
+sbatch mm.slurm
+
+tabix mm.vcf.gz
+
+Search region for RPE65:
+bcftools view -r 'chr5:89895561-89918174' mm.vcf.gz -O v -o RPEmm.vcf.gz
+
